@@ -86,25 +86,89 @@
 
 # 递归
 #汉诺塔问题
-def hanno(n, a, b, c):
-	if n==1:
-		print(a,'  --> ',c)
-		return
-	else:
-		hanno(n-1, a, c, b)
-		hanno(1, a, b, c)
-		hanno(n-1, b, a, c)
-n = int(input('请输入汉诺塔的层数:'))
-print(hanno(n, 'a', 'b', 'c'))
-def move(n, a, b, c):
-    if n == 1:
-        print('move', a, '-->', c)
-        return
-    move(n-1, a, c, b)
-    print('move', a, '-->', c)
-    move(n-1, b, a, c)
+# def hanno(n, a, b, c):
+# 	if n==1:
+# 		print(a,'  --> ',c)
+# 		return
+# 	else:
+# 		hanno(n-1, a, c, b)
+# 		hanno(1, a, b, c)
+# 		hanno(n-1, b, a, c)
+# n = int(input('请输入汉诺塔的层数:'))
+# print(hanno(n, 'a', 'b', 'c'))
+# def move(n, a, b, c):
+#     if n == 1:
+#         print('move', a, '-->', c)
+#         return
+#     move(n-1, a, c, b)
+#     print('move', a, '-->', c)
+#     move(n-1, b, a, c)
 
-move(4, 'a', 'b', 'c')
+# move(4, 'a', 'b', 'c')
+
+
+
+#高级特性
+
+#切片
+# L = [4,2,56,12,7,22,68]
+# L = list(range(100))
+# print('原数列：',L)
+# print('第四到第六个元素',L[3:6])
+# print('倒数第一个元素',L[-1])
+# print('倒数三个元素',L[-3:])
+# print('原样复制的',L[:])
+# # tuple切片 
+# T = tuple(range(10))
+# print('切片前：',T)
+# T = T[3:7]
+# print('切片后：',T)
+#字符串也可以看作是一种list，每个元素就是一个字符，也可进行切片操作
+# print('salfjdeDSsaaS'[5:11])
+
+#迭代
+# from collections import Iterable
+# print(isinstance('abc',Iterable))
+# print(isinstance([1,2,3],Iterable))
+# print(isinstance(123,Iterable))
+#  利用enumerate函数把一个list变成索引-元素对
+# for i,value in enumerate(['pp','lsd','kace','bob']):
+# 	print(i, value)
+#同时引用两个变量
+# for x, y in [(1, 1), (2, 4), (3, 9)]:
+# 	print(x, y)	
+
+#列表生成式
+# L1 = ['Hello', 'world', 21, 'KacEy', None, 'Apple']
+# L2 = [s.lower() for s in L1 if isinstance(s, str)]
+# print(L2)
+#生成器 generator
+# g = (x*x for x in range(20) if x%2==0)  #列表生成式与生成器的区别仅在[],()
+# for n in g:
+# 	print(n)
+
+#斐波那契数列
+def fib(max):
+	n, a, b = 0, 0, 1
+	while n<max:
+		# print(b)
+		yield b
+		a, b = b, a+b
+		n = n+1
+	return 'done'
+# print(fib(20))
+for n in fib(20):
+	print(n)
+
+
+
+
+
+
+
+
+
+
 
 
 
