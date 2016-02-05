@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # coding: utf-8
 
 # ##判断
@@ -65,14 +66,45 @@
 #abs()求绝对值 max()参数可以任意多个
 #数据类型转换 int() float() str() bool()
 #hex() int->16进制
-n1 = 255
-n2 = 1000
-print(hex(n1),'and',hex(n2))
+# n1 = 255
+# n2 = 1000
+# print(hex(n1),'and',hex(n2))
 
+# import math
+# def quadratic(a, b, c):
+# 	x1 = (-b+math.sqrt(b*b-4*a*c))/(2*a)
+# 	x2 = (-b-math.sqrt(b*b-4*a*c))/(2*a)
+# 	return x1,x2
+# 
+# a = float( input('计算ax*x+bx+c=0的解，请输入参数a='))
+# b = float( input('b='))
+# c = float( input('c='))
+# if b*b-4*a*c<0:
+# 	print('方程无解')
+# else:
+# 	print('方程的解为',quadratic(a,b,c))
 
+# 递归
+#汉诺塔问题
+def hanno(n, a, b, c):
+	if n==1:
+		print(a,'  --> ',c)
+		return
+	else:
+		hanno(n-1, a, c, b)
+		hanno(1, a, b, c)
+		hanno(n-1, b, a, c)
+n = int(input('请输入汉诺塔的层数:'))
+print(hanno(n, 'a', 'b', 'c'))
+def move(n, a, b, c):
+    if n == 1:
+        print('move', a, '-->', c)
+        return
+    move(n-1, a, c, b)
+    print('move', a, '-->', c)
+    move(n-1, b, a, c)
 
-
-
+move(4, 'a', 'b', 'c')
 
 
 
