@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# coding: utf-8
+#coding: utf-8
 
 # ##判断
 # height = float(input('你的身高为：'))
@@ -147,21 +147,126 @@
 # for n in g:
 # 	print(n)
 
-#斐波那契数列
-def fib(max):
-	n, a, b = 0, 0, 1
-	while n<max:
-		# print(b)
-		yield b
-		a, b = b, a+b
-		n = n+1
-	return 'done'
-# print(fib(20))
-for n in fib(20):
-	print(n)
+# #斐波那契数列
+# def fib(max):
+# 	n, a, b = 0, 0, 1
+# 	while n<max:
+# 		# print(b)
+# 		yield b
+# 		a, b = b, a+b
+# 		n = n+1
+# 	return 'done'
+# # print(fib(20))
+# for n in fib(20):
+# 	print(n)
 
+#高阶函数 Higher-order function
+#1.变量可以指向函数
+# f = abs
+# print(f)
+# print(f(-23))
+#2.函数名完全相同
+#不能 abs = 10 
+#     abs(-10)
+#3.传入函数  (编写高阶函数，就是让函数的参数能够接收别的函数)
+# def add(x, y, f):
+# 	return f(x)+f(y)
+# print(add(-5, 6, abs))
 
+##Google三驾马车：google file system， mapreduce， bigtable
+##Python内置map()映射 reduce()化简 函数，
+# def f(x):
+# 	return x*x*x
+# l = [1,3,45,22,45,23,6]
+# r = map(f, l) #利用map操作一个列表
+# print(r)
+# print(list(r))
+# print(l);  #每个元素都是被独立操作的，而原始列表没有被更改，因为这里创建了一个新的列表来保存新的答案。这就是说，Map操作是可以高度并行的
+# print(list(map(str, l)))  #将所有数字转化为字符串
+## reduce操作相当于 reduce(f, [x1, x2, x3, x4]) = f( f( f(x1,x2),x3 ),x4 )
+#from functools import reduce 
+# def str2int(s):     #自己实现int()函数
+# 	def fn(x, y):
+# 		return x*10 + y
+# 	def char2num(s):
+# 		return {'0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9}[s]
+# 	return reduce(fn, map(char2num, s))
+# print(isinstance(str2int('432'), int) )
 
+# def normalize(name):
+# 	return name.lower().capitalize() #转换成只有首字母大写的名字
+# L1 = ['adam','LIsA','bartT']
+# print( list( map(normalize, L1) ) )
+
+# from functools import reduce 
+# def prod(L): #可以接收一个list求乘积
+# 	def multi(x1, x2):
+# 		return x1*x2 
+# 	return reduce(multi, L)
+# print('3*5*7*9=', prod([3,5,7,9]))
+
+# from functools import reduce 
+# n = 0.1
+# def str2float(s):
+# 	def fn(x, y):
+# 		if y == '.':
+# 			x = float(x)
+# 			return x
+# 		if isinstance(x, int):
+# 			return x*10+y
+# 		elif isinstance(x, float):
+# 			global n
+# 			result = x+y*n
+# 			n = n*0.1
+# 			return result
+# 	def char2num(s):
+# 		return {'0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '.':'.'}[s]
+# 	return reduce( fn, map(char2num,s) )
+# print('str2float(\'125.215\') = ', str2float('125.215'))
+
+##filter求素数
+###埃氏筛法
+# def _odd_iter(): #奇数序列（生成器，无限数列）
+# 	n = 1
+# 	while True:
+# 		n = n+2 
+# 		yield n 
+# def _not_divisible(n):
+# 	return lambda x: x%n>0 #返回不能被n整除的数
+# def primes():
+# 	yield 2 
+# 	it = _odd_iter()
+# 	while True:
+# 		n = next(it)
+# 		yield n 
+# 		it = filter(_not_divisible(n), it)
+# for n in primes():
+# 	if n < 1000:
+# 		print(n)
+# 	else:
+# 		break
+# def is_palindrome(n):   #得回数
+# 	flag = True
+# 	n = str(n)
+# 	length = len(n)
+# 	for x in range(0, length//2):
+# 		if n[x] != n[-x-1]:
+# 			flag = False
+# 	return flag
+# output = filter(is_palindrome, range(1,1000))  #由于filter()使用了惰性计算，所以只有在取filter()结果的时候，才会真正筛选并每次返回下一个筛出的元素。
+# print(list(output)) 
+
+##sorted
+#print( sorted([23,52,1,-22,4,-95], key=abs, reverse=True) )
+# print( sorted(['bob','Duck','kacey','Tommy','Zoo'],key=str.lower))
+students = [('Bob',75),('Adam',92),('Bart',66),('Lisa',88)]
+def by_name(t):
+	
+	
+# from operator import itemgetter
+# print(sorted(students, key=itemgetter(0)))
+# print(sorted(students, key=lambda t: t[1]))
+# print(sorted(students, key=itemgetter(1), reverse=True))
 
 
 
