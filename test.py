@@ -259,14 +259,101 @@
 ##sorted
 #print( sorted([23,52,1,-22,4,-95], key=abs, reverse=True) )
 # print( sorted(['bob','Duck','kacey','Tommy','Zoo'],key=str.lower))
-students = [('Bob',75),('Adam',92),('Bart',66),('Lisa',88)]
-def by_name(t):
-	
+# students = [('Bob',75),('Adam',92),('Bart',66),('Lisa',88),('zra',76)]
+# def by_name(t):
+# 	return t[0]
+# def by_score(t):
+# 	return t[1]
+# print( sorted(students,key=by_name) )
+# L2 = sorted(students, key=by_score, reverse=True)
+# print(L2)
 	
 # from operator import itemgetter
 # print(sorted(students, key=itemgetter(0)))
 # print(sorted(students, key=lambda t: t[1]))
 # print(sorted(students, key=itemgetter(1), reverse=True))
+
+##函数作为返回值
+# def lazy_sum(*args):
+# 	def sum():
+# 		ax = 0 
+# 		for n in args:
+# 			ax = ax + n 
+# 		return ax 
+# 	return sum     #函数作为返回值
+# ##用例
+# f = lazy_sum(1,4,25,19,2)
+# print(f)   #function lazy_sum.(locals).sum at 0x008c8c00
+# print(f())  #调用的时候才进行运算
+# ##相关参数和变量都保存在返回的函数中，这种称为“闭包（Closure）”的程序结构拥有极大的威力。
+# ##返回的函数并没有立刻执行，而是直到调用了f()才执行
+# ##返回闭包时牢记的一点就是：返回函数不要引用任何循环变量，或者后续会发生变化的变量。
+# def count():
+# 	def f(j):
+# 		def g():
+# 			return j*j
+# 		return g
+# 	fs = []
+# 	for i in range(1, 4):
+# 		fs.append(f(i))
+# 	return fs 
+# f1, f2, f3 = count()
+# print(f1())
+# print(f2())
+# print(f3())
+
+##匿名函数 lambda 只能有一个表达式，不用写return，返回值就是该表达式的结果
+##装饰器  本质上，decorator就是一个返回函数的高阶函数
+#定义装饰器
+# def log(func):
+# 	def wrapper(*args, **kw):
+# 		print('call %s():' %func.__name__)
+# 		return func(*args, **kw)
+# 	return wrapper
+# #使用装饰器
+# @log    ##把@log放在函数定义处，相当于执行语句 now = log(now)
+# def now():
+# 	print('2016/2/11')
+# now()
+##装饰器本身需要传入参数的情况
+# import functools
+# def log(text):
+# 	def decorator(func):
+# 		@functools.wraps(func)    
+# 		def wrapper(*args, **kw):   #*args表示任何多个无名参数，它是一个tuple**kwargs表示关键字参数，它是一个dict
+# 			print('%s %s():' %(text, func.__name__))
+# 			return func(*args, **kw)
+# 		return wrapper
+# 	return decorator
+# @log('execute')
+# def now():     #now = log('execute')(now)
+# 	print('2016/2/11')
+# now()
+# print(now.__name__)
+
+# import functools
+# def log(func):
+# 	@functools.wraps(func)
+# 	def wrapper(*args, **kw):
+# 		print('begin call');
+# 		f = func(*args, **kw)
+# 		print('end call')
+# 		return f
+# 	return wrapper
+# @log 
+# def f():
+# 	print('hello world!')
+# f()
+
+
+#偏函数 function.partial帮助我们创建一个偏函数
+import functools
+int2 = functools.partial(int, base=2)    #相当于创建了这么一个函数    def int2(x, base=2):                                                  return int(x, base)
+print( int2('100100') )   
+#相当于
+print( int('100100',base=2))
+
+
 
 
 
