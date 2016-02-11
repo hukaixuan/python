@@ -346,22 +346,48 @@
 # f()
 
 
-#偏函数 function.partial帮助我们创建一个偏函数
-import functools
-int2 = functools.partial(int, base=2)    #相当于创建了这么一个函数    def int2(x, base=2):                                                  return int(x, base)
-print( int2('100100') )   
-#相当于
-print( int('100100',base=2))
+# #偏函数 function.partial帮助我们创建一个偏函数
+# import functools
+# int2 = functools.partial(int, base=2)    #相当于创建了这么一个函数    def int2(x, base=2):                                                  return int(x, base)
+# print( int2('100100') )   
+# #相当于
+# print( int('100100',base=2))
 
 
+##模块和包
+###__init__.py
 
+##pip install
 
+##面向对象编程
+class Student(object):
+	def __init__(self, name, score):
+		self.name = name 
+		self.__score = score   #双下划线开头的是私有变量   单下划线开头表示虽然我可以被访问，但是，请把我视为私有变量，不要随意访问”   以双下划线开头，并且以双下划线结尾的，是特殊变量，特殊变量是可以直接访问的，不是private变量，
+	def print_score(self):
+		print('%s: %s' %(self.name, self.score))
+	def get_grade(self):
+		if self.score>=90:
+			return 'A'
+		elif self.score>=60:
+			return 'B'
+		else:
+			return 'C'
 
+bart = Student('Bart Simpson', 59)
+lisa = Student('Lisa Simpson', 87)
+# bart.print_score()
+# print(bart.get_grade())
+# lisa.print_score()
+# print(lisa.get_grade())
+# bart.age = 8  ###和静态语言不同，Python允许对实例变量绑定任何数据，
+# print(bart.age)
 
-
-
-
-
+# print(bart.__score)  # 错误
+print(bart._Student__score)  ##可以访问到，但是不建议
+ 
+##判断类型 type()
+##dir() 获得一个对象的所有属性和方法
 
 
 
