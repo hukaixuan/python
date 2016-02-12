@@ -360,22 +360,22 @@
 ##pip install
 
 ##面向对象编程
-class Student(object):
-	def __init__(self, name, score):
-		self.name = name 
-		self.__score = score   #双下划线开头的是私有变量   单下划线开头表示虽然我可以被访问，但是，请把我视为私有变量，不要随意访问”   以双下划线开头，并且以双下划线结尾的，是特殊变量，特殊变量是可以直接访问的，不是private变量，
-	def print_score(self):
-		print('%s: %s' %(self.name, self.score))
-	def get_grade(self):
-		if self.score>=90:
-			return 'A'
-		elif self.score>=60:
-			return 'B'
-		else:
-			return 'C'
+# class Student(object):
+# 	def __init__(self, name, score):
+# 		self.name = name 
+# 		self.__score = score   #双下划线开头的是私有变量   单下划线开头表示虽然我可以被访问，但是，请把我视为私有变量，不要随意访问”   以双下划线开头，并且以双下划线结尾的，是特殊变量，特殊变量是可以直接访问的，不是private变量，
+# 	def print_score(self):
+# 		print('%s: %s' %(self.name, self.score))
+# 	def get_grade(self):
+# 		if self.score>=90:
+# 			return 'A'
+# 		elif self.score>=60:
+# 			return 'B'
+# 		else:
+# 			return 'C'
 
-bart = Student('Bart Simpson', 59)
-lisa = Student('Lisa Simpson', 87)
+# bart = Student('Bart Simpson', 59)
+# lisa = Student('Lisa Simpson', 87)
 # bart.print_score()
 # print(bart.get_grade())
 # lisa.print_score()
@@ -384,10 +384,75 @@ lisa = Student('Lisa Simpson', 87)
 # print(bart.age)
 
 # print(bart.__score)  # 错误
-print(bart._Student__score)  ##可以访问到，但是不建议
+# print(bart._Student__score)  ##可以访问到，但是不建议
  
 ##判断类型 type()
 ##dir() 获得一个对象的所有属性和方法
+
+
+# ##一般情况下，类的实例可以绑定任何属性和方法
+# class Student(object):
+# 	pass 
+
+# s = Student()
+# s.name = 'Michael'  #绑定属性
+# print(s.name)
+
+# def set_age(self, age):
+# 	self.age = age 
+# from types import MethodType
+# s.set_age = MethodType(set_age, s)  #绑定方法
+# s.set_age(25)
+# print(s.age)
+# ##为了给所有实例都绑定方法，可以给class绑定方法：
+# def set_score(self, score):
+# 	self.score = score 
+
+# Student.set_score = MethodType(set_score, Student)
+
+# s.set_score(89)
+# print(s.score)
+
+# ###限定实例的属性，定义__slots__变量
+# class Student(object):
+# 		__slots__ = ('name', 'age')  #用tuple定义允许绑定的属性名称
+
+# s = Student()
+# s.name = 'Michael'
+# s.age = 21
+# # s.score = 67   ##错误：‘student’ object has no attribute 'score'
+
+##使用@property
+class Screen(object):
+	@property
+	def width(self):
+	    return self._width
+	@width.setter
+	def width(self, value):
+		self._width = value
+	@property
+	def height(self):
+	    return self._height
+	@height.setter
+	def height(self, value):
+		self._height = value
+	@property
+	def resolution(self):
+	    return self._height*self._width
+	
+
+s = Screen()
+s.width = 1024
+s.height = 768
+print(s.height)
+print(s.resolution)
+
+##Mixln
+
+
+
+
+
 
 
 
