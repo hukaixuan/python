@@ -422,44 +422,200 @@
 # s.age = 21
 # # s.score = 67   ##错误：‘student’ object has no attribute 'score'
 
-##使用@property
-class Screen(object):
-	@property
-	def width(self):
-	    return self._width
-	@width.setter
-	def width(self, value):
-		self._width = value
-	@property
-	def height(self):
-	    return self._height
-	@height.setter
-	def height(self, value):
-		self._height = value
-	@property
-	def resolution(self):
-	    return self._height*self._width
+# ##使用@property
+# class Screen(object):
+# 	@property
+# 	def width(self):
+# 	    return self._width
+# 	@width.setter
+# 	def width(self, value):
+# 		self._width = value
+# 	@property
+# 	def height(self):
+# 	    return self._height
+# 	@height.setter
+# 	def height(self, value):
+# 		self._height = value
+# 	@property
+# 	def resolution(self):
+# 	    return self._height*self._width
 	
 
-s = Screen()
-s.width = 1024
-s.height = 768
-print(s.height)
-print(s.resolution)
+# s = Screen()
+# s.width = 1024
+# s.height = 768
+# print(s.height)
+# print(s.resolution)
 
-##Mixln
+# ##Mixln
+
+# ##定制类
+## __slots__ 
+## __len__()
+## __str__
+
+# class Student(object):
+# 	def __init__(self, name):
+# 		self.name = name 
+# 	def __str__(self):
+# 		return 'Student object (name: %s)' %self.name 
+# 	__repr__ = __str__ 
+# print(Student('Michael'))
+
+##__iter__
+##类想用于for...in 循环，必须实现__iter__()方法，该方法返回一个迭代对象
+##然后for循环不断调用该迭代对象的__next__()方法拿到循环的下一个值，知道
+##遇到StopIteration错误时退出循环
+##斐波那契数列
+# class Fib(object):
+# 	def __init__(self):
+# 		self.a, self.b = 0, 1 ##初始化两个计数器a，b
+# 	def __iter__(self):
+# 		return self    #实例本身就是迭代对象，故返回自己
+# 	def __next__(self):
+# 		self.a, self.b = self.b, self.a+self.b  #计算下一个值
+# 		if self.a >100000:
+# 			raise StopIteration()
+# 		return self.a
+# 	def __getitem__(self, n):
+# 		a, b = 1, 1 
+# 		for x in range(n):
+# 			a, b = b, a+b 
+# 		return a 
+# 	def __call__(self):
+# 		print('我是Fib函数，你在调用我干嘛？')
+# # for n in Fib():
+# # 	print(n)
+
+# ##实现__getitem__(),才能像list一样按照下标取出元素
+# f = Fib()
+# print( f[100] )
+
+# ##__getattr__ 动态返回一个属性, 动态调用
+
+# ##__call__ 方法，可以直接对实例进行调用
+# f()
+# ##完全可以把对象看成函数，把函数看成对象，因为这两者之间本来就没啥根本的区别
 
 
 
+##Enum
+# from enum import Enum
 
+# Month = Enum('Month', ('Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec') )
 
+# print(Month.Jun.value)
+# for name, member in Month.__members__.items():
+# 	print(name, '=>', member, ',', member.value)
 
+##元类metaclass是Python中非常具有魔术性的对象，它可以改变类创建时的行为。这种强大的功能使用起来务必小心。
+##调试 print assert logging pdb pdb.set_trace()
+ 
 
+##  IO
+## 同步IO  CPU等待
+## 异步IO  CPU不等待   同步和异步的区别就在于是否等待IO执行的结果
+## 文件读写
+# try:
+# 	f = open('E:\python/testIO.txt','r')
+# 	print(f.read())
+# finally:
+# 	if f:
+# 		f.close()
+###等同于：
+# with open('E:/python/testIO.txt','r') as f:
+# 	print(f.read(2))   ##read() read(size) readline() readlines()
 
+##像open()函数返回的这种有个read()方法的对象，在Python中统称为file-like Object
+##读取二进制文件，如图片，视频等等， 用 'rb' 模式打开
+##字符编码， 给open() 函数传入encoding参数,如读取GBK编码的文件：encoding = 'gbk'
+##编码不规范，可以errors='ignore'掉
 
+##写入
+# with open('E:\python/testIO.txt','w',encoding='utf-8') as f:
+# 	f.write('你好，世界！')   #使用with语句操作文件IO是个好习惯。
 
+# StringIO 在内存中读写str
+# from io import StringIO
+# f = StringIO()  ##创建一个StringIO
+# for i in range(1,11):
+# 	f.write('%d.hello world\n' %i)
+# print(f.getvalue())
+# f = StringIO('Hello\nHi\nGoodbye')
+# while True:
+# 	s = f.readline()
+# 	if s == '':
+# 		break
+# 	print(s.strip())
 
+## BytesIO  内存中读写二进制数据 bytes
+# from io import BytesIO
+# f = BytesIO()
+# f.write('中文&english'.encode('utf-8'))
+# print(f.getvalue())
+# f = BytesIO(b'\xe4\xb8\xad\xe6\x96\x87')
+# print(f.read())
 
+##操作文件和目录
+# import os
+# os.name 
+# os.uname() ##windows 下不支持
+# os.environ #环境变量
+# os.environ.get('key')  #获得某个环境变量的值
+# print(os.path.abspath('.'))  #查看当前目录的绝对路径
+# os.path.join('E:\python','')  #拼接路径
+# os.path.split()  #拆分路径，后一部分总是最后级别的目录和文件名
+# os.path.splitext()  #得到文件的扩展名
+
+# os.rename('testIO.txt','testFile')
+# os.remove()
+
+##shutil模块提供了copyfile()函数，该模块的很多函数可以看作os模块的补充
+# print([x for x in os.listdir('.') if os.path.isdir(x)])  #列出当前目录下的所有目录
+# print([x for x in os.listdir('.') if os.path.isfile(x) and os.path.splitext(x)[1]=='.py' ])
+
+# from datetime import datetime
+# import os
+
+# pwd = os.path.abspath('.')
+
+# print('      Size     Last Modified  Name')
+# print('------------------------------------------------------------')
+
+# for f in os.listdir(pwd):
+#     fsize = os.path.getsize(f)
+#     mtime = datetime.fromtimestamp(os.path.getmtime(f)).strftime('%Y-%m-%d %H:%M')
+#     flag = '/' if os.path.isdir(f) else ''
+#     print('%10d  %s  %s%s' % (fsize, mtime, f, flag))
+
+##把变量从内存中变成可存储或传输的过程称之为序列化，在Python中叫pickling，
+##在其他语言中也被称之为serialization，marshalling，flattening等等，都是一个意思。
+##把变量内容从序列化的对象重新读到内存里称之为反序列化，即unpickling。
+
+# import pickle  ##pickle模块实现序列化
+# d = dict(name='Bob', age=20, score=93)
+# # print( pickle.dumps(d) ) ##pickle.dumps()把任意对象序列化为一个bytes
+# with open('E:\python/testFile','wb') as f:
+# 	pickle.dump(d, f)   #pickle.dump()直接把对象序列化后写入一个file-like Object
+# with open('E:\python/testFile','rb') as f:
+# 	d = pickle.load(f)
+# print(d)
+
+# ##JSON
+# import json
+# d = dict(name='Bob',age=20,score=88)
+# print(json.dumps(d))   #返回一个标准JSON格式的str（序列化）
+# json_str = '{"age": 18, "score": 75, "name": "Kacey"}'
+# print( json.loads(json_str) )   #反序列化
+
+#普通对象的序列化
+import json
+class Student(object):
+	pass
+s = Student()
+s.name='Kacey'
+s.age='21'
+print(json.dumps(s, default=lambda obj:obj.__dict__))
 
 
 
