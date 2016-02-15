@@ -27,21 +27,28 @@ import sys
 import os
 
 targetDir = 'E:/pythonLoad' #文件保存路径
+# index = 0
 def destFile(path):
 	if not os.path.isdir(targetDir):
 		os.mkdir(targetDir)
+	global index
+	#index+=1
 	pos = path.rindex('/')
+	#path = path[pos+1:].replace('&','1').replace('=','2').replace(',','3').replace('u','4')
 	t = os.path.join(targetDir, path[pos+1:])
 	print(t)
 	return t 
 if __name__ == '__main__':   #程序运行入口
 	# weburl = 'http://' + input('想要爬取的网址：')
-	weburl = 'http://news.baidu.com/'
+	weburl = 'http://news.baidu.com'
 	webheader = {'User-Agent':'Mozilla/5.0 (Windows NT 6.1; rv:44.0) Gecko/20100101 Firefox/44.0'}
 	req = urllib.request.Request(url=weburl, headers=webheader)  #构造请求报头
 	webpage = urllib.request.urlopen(req)  #发送请求报头
 	# while webpage != '':
-	contentBytes = webpage.read()
+	#contentBytes = webpage.read()
+	f = open('E:/python/result','rb')
+	contentBytes = f.read()
+	f.close()
 		# with open('E:/python/result','wb+') as f:
 		# 	f.write(contentBytes)
 	success = 0

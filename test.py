@@ -608,17 +608,45 @@
 # json_str = '{"age": 18, "score": 75, "name": "Kacey"}'
 # print( json.loads(json_str) )   #反序列化
 
-#普通对象的序列化
-import json
-class Student(object):
-	pass
-s = Student()
-s.name='Kacey'
-s.age='21'
-print(json.dumps(s, default=lambda obj:obj.__dict__))
+##普通对象的序列化
+# import json
+# class Student(object):
+# 	pass
+# s = Student()
+# s.name='Kacey'
+# s.age='21'
+# print(json.dumps(s, default=lambda obj:obj.__dict__))
 
-
-
+##正则表达式
+##直接给出字符，精确匹配
+##\d 匹配一个数字    \w 匹配一个字母
+## . 匹配任意字符
+## * 匹配任意个字符（包括0个）
+## + 至少一个字符
+## ？0个或1个字符 
+##{n}表示n个字符
+##{n,m} 表示n-m个字符
+##\s 匹配一个空格（包括Tab等空白符）
+##
+##eg:  \d{3}\s+\d{3,8}  三个数字+至少一个空格+三到八个数字
+##
+##
+##
+##
+##
+##
+##
+##
+##
+##
+##
+##
+##
+##
+##
+##
+##
+##
 
 
 
