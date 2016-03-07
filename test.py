@@ -21,7 +21,7 @@
 
 
 #循环
-#1. for...in循环，依次把list或tuple中的每个元素迭代出来
+#1. for...in循环，依次把list(列表)或tuple(初始化后就不可更改的list)中的每个元素迭代出来
 # names = ['hukaixuan','xiaohong','xiogdd','jack','胡凯旋']
 # for name in names:
 # 	print(name)
