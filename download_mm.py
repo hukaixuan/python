@@ -61,8 +61,3 @@ def download_mm(floder='E:\Pictures\mm/', pages=15):
 
 if __name__ == '__main__':
 	download_mm()
-
-
-
-
-
